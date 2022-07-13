@@ -317,6 +317,10 @@ window.addEventListener('mouseup', function(e){
     }
 })
 
+timeLine.addEventListener('click', function(){
+    intervalCurrent()
+})
+
 
 //13. khi ấn vào loop
 loop.addEventListener('click', function(){
