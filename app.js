@@ -299,6 +299,19 @@ window.addEventListener('mousedown', function(e){
         }
     }
 })
+window.addEventListener('touchstart', function(e){
+    if(e.target.matches('.circle') || e.target.matches('.time-line') || e.target.matches('.percent')){
+        clickDown = true
+        clearInterval(currentTime)
+
+            if(!e.target.matches('.circle')){
+                document.querySelector('audio.active').currentTime = percentTimeLine(e) * document.querySelector('audio.active').duration
+                currentTime =  setInterval(()=>{
+                intervalCurrent()
+            }, 100)
+        }
+    }
+})
 window.addEventListener('mousemove', function(e){
     this.document.body.style.userSelect = 'none'
 
@@ -312,7 +325,23 @@ window.addEventListener('mousemove', function(e){
     }
     
 })
+window.addEventListener('touchmove', function(e){
+    this.document.body.style.userSelect = 'none'
+
+    let percent = percentTimeLine(e)
+
+    if(clickDown){
+        clearInterval(currentTime)
+        playingTimeLeft.innerHTML =  convertSecondsToMinutes(percent * document.querySelector('audio.active').duration)
+        circle.style.left = percent * 100 + '%'
+        percentLine.style.width = percent * 100 + '%'
+    }
+    
+})
 window.addEventListener('mouseup', function(e){
+    clickDown = false
+})
+window.addEventListener('touchend', function(e){
     clickDown = false
 })
 
