@@ -290,6 +290,12 @@ window.addEventListener('mousedown', function(e){
     if(e.target.matches('.circle') || e.target.matches('.time-line') || e.target.matches('.percent')){
         clickDown = true
         clearInterval(currentTime)
+        
+        if(!e.target.matches('.circle')){
+            document.querySelector('audio.active').currentTime = percentTimeLine(e) * document.querySelector('audio.active').duration
+            currentTime =  setInterval(()=>{
+            intervalCurrent()
+        }, 100)
     }
 })
 window.addEventListener('mousemove', function(e){
@@ -306,13 +312,7 @@ window.addEventListener('mousemove', function(e){
     
 })
 window.addEventListener('mouseup', function(e){
-    if(clickDown){
-        document.querySelector('audio.active').currentTime = percentTimeLine(e) * document.querySelector('audio.active').duration
-        currentTime =  setInterval(()=>{
-            intervalCurrent()
-        }, 100)
-        clickDown = false
-    }
+    clickDown = false
 })
 
 //13. khi ấn vào loop
