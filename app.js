@@ -210,13 +210,13 @@ listItem.forEach(item => {
             const itemId = document.querySelector('.item.active').dataset.index
             if(random.find(num => itemId == num) === undefined) random.push(itemId)
         }
-
         play.click()
     })
 })
 
 //8. khi ấn play
 play.addEventListener('click', function(){
+    forWard.style.pointerEvents = 'all'
 
     thumbnail.classList.remove('pause')
     thumbnail.classList.add('play')
@@ -272,6 +272,7 @@ forWard.addEventListener('click', function(){
         nextItem.click()
     }else{
         pause.click()
+        this.style.pointerEvents = 'none'
     }
 })
 

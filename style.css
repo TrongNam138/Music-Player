@@ -216,6 +216,7 @@ main {
 
 #playlist .item.active {
     box-shadow: rgb(49, 224, 59) 0px 0px 0px 2px inset;
+    pointer-events: none;
 }
 
 #playlist .item:hover {
