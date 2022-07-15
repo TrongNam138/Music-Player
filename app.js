@@ -97,7 +97,6 @@ function randomOptimization(arr){
     }
 
     random.push(numberRandom)
-    console.log(random)
     return numberRandom
 }
 
