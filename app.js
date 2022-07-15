@@ -97,6 +97,7 @@ function randomOptimization(arr){
     }
 
     random.push(numberRandom)
+    console.log(random)
     return numberRandom
 }
 
@@ -205,11 +206,6 @@ listItem.forEach(item => {
         clearInterval(currentTime)
         loop.classList.remove('active')
 
-        //6.6 nếu random có active và index không có trong mảng random thì thêm index đó vào mảng random 
-        if(randomControl.classList.contains('active')){
-            const itemId = document.querySelector('.item.active').dataset.index
-            if(random.find(num => itemId == num) === undefined) random.push(itemId)
-        }
         play.click()
     })
 })
@@ -237,12 +233,8 @@ play.addEventListener('click', function(){
     document.querySelector('audio.active').onended = function(){
         clearInterval(currentTime)
         
-        // nếu ấn chọn random
-        if(randomControl.classList.contains('active')){
-            listItem[randomOptimization(listItem)].click()
-        }
         // nếu ấn chọn loop
-        else if(loop.classList.contains('active')){
+        if(loop.classList.contains('active')){
             play.click()
         // mặc định phát bài tiếp theo
         }else{
@@ -267,20 +259,37 @@ pause.addEventListener('click', function(){
 
 //10. khi ấn forWard
 forWard.addEventListener('click', function(){
-    const nextItem = document.querySelector('.item.active').nextElementSibling
-    if(nextItem){
-        nextItem.click()
-    }else{
-        pause.click()
-        this.style.pointerEvents = 'none'
+    // nếu ấn chọn random
+    if(randomControl.classList.contains('active'))
+    {
+        listItem[randomOptimization(listItem)].click()
+    }
+    else
+    {
+        const nextItem = document.querySelector('.item.active').nextElementSibling
+        if(nextItem){
+            nextItem.click()
+        }else{
+            pause.click()
+            this.style.pointerEvents = 'none'
+        }
     }
 })
 
 //11. khi ấn backWard
 backward.addEventListener('click', function(){
-    const prevItem = document.querySelector('.item.active').previousElementSibling
-    if(prevItem){
-        prevItem.click()
+    if(randomControl.classList.contains('active'))
+    {
+        listItem[randomOptimization(listItem)].click()
+    }
+    else
+    {
+        const prevItem = document.querySelector('.item.active').previousElementSibling
+        if(prevItem && document.querySelector('audio.active').currentTime <= 3){
+            prevItem.click()
+        }else{
+            document.querySelector('audio.active').currentTime = 0
+        }
     }
 })
 
