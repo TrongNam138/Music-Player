@@ -280,7 +280,11 @@ forWard.addEventListener('click', function(){
 backward.addEventListener('click', function(){
     if(randomControl.classList.contains('active'))
     {
-        listItem[randomOptimization(listItem)].click()
+        if(document.querySelector('audio.active').currentTime <= 3){
+            listItem[randomOptimization(listItem)].click()
+        }else{
+            document.querySelector('audio.active').currentTime = 0
+        }
     }
     else
     {
@@ -291,6 +295,7 @@ backward.addEventListener('click', function(){
             document.querySelector('audio.active').currentTime = 0
         }
     }
+    
 })
 
 let clickDown = false
